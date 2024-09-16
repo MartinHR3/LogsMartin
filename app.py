@@ -4,7 +4,7 @@ import os  # Módulo para interactuar con el sistema de archivos
 import re  # Módulo para trabajar con expresiones regulares
 import requests  # Módulo para hacer solicitudes HTTP
 from datetime import datetime, timedelta  # Módulos para manejar fechas y tiempos
-from Evtx.Evtx import Evtx  # Importar módulo Evtx para leer archivos de registro de eventos de Windows (.evtx)
+from Evtx.Evtx import Evtx  # type: ignore # Importar módulo Evtx para leer archivos de registro de eventos de Windows (.evtx)
 
 # Inicializamos la aplicación Flask
 app = Flask(__name__)  # Crear una instancia de la aplicación Flask
