@@ -4,7 +4,7 @@ import os  # Módulo para interactuar con el sistema de archivos
 import re  # Módulo para trabajar con expresiones regulares
 import requests  # Módulo para hacer solicitudes HTTP
 from datetime import datetime, timedelta  # Módulos para manejar fechas y tiempos
-from evtx import evtx  # Importar módulo Evtx para leer archivos de registro de eventos de Windows (.evtx)
+from evtx import Evtx  # Importar la clase Evtx para leer archivos de registro de eventos de Windows (.evtx)
 
 # Inicializamos la aplicación Flask
 app = Flask(__name__)  # Crear una instancia de la aplicación Flask
@@ -12,7 +12,7 @@ app = Flask(__name__, static_url_path='/static')  # Especificar la ruta para arc
 
 # Función para analizar los logs del sistema
 def analizar_logs():
-    directorio_logs = 'C:\Windows\System32\winevt\Logs'  # Ruta al directorio de logs del sistema
+    directorio_logs = r'C:\Windows\System32\winevt\Logs'  # Ruta al directorio de logs del sistema
     patron_inicio_sesion = r'4625</EventID>'  # Patrón para buscar eventos de ID 4625 (intentos fallidos de inicio de sesión)
     inicios_sesion = []  # Lista para almacenar los inicios de sesión encontrados
     limite_tiempo = datetime.now() - timedelta(days=3)  # Definir un límite de tiempo de 3 días atrás desde ahora
@@ -24,7 +24,7 @@ def analizar_logs():
             # Considerar solo archivos .evtx y que contengan 'Security' en su nombre
             if archivo_log.endswith('.evtx') and 'Security' in archivo_log:
                 ruta_archivo = os.path.join(directorio_logs, archivo_log)  # Obtener la ruta completa del archivo
-                with evtx(ruta_archivo) as log:  # Abrir el archivo de log para leer
+                with Evtx(ruta_archivo) as log:  # Abrir el archivo de log para leer usando Evtx
                     print("Se está leyendo el fichero " + archivo_log)  # Imprimir un mensaje indicando el archivo que se está leyendo
                     # Iterar sobre los registros en el archivo de log
                     for record in log.records():
