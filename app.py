@@ -24,7 +24,7 @@ def analizar_logs():
             # Considerar solo archivos .evtx y que contengan 'Security' en su nombre
             if archivo_log.endswith('.evtx') and 'Security' in archivo_log:
                 ruta_archivo = os.path.join(directorio_logs, archivo_log)  # Obtener la ruta completa del archivo
-                with Evtx(ruta_archivo) as log:  # Abrir el archivo de log para leer
+                with evtx(ruta_archivo) as log:  # Abrir el archivo de log para leer
                     print("Se está leyendo el fichero " + archivo_log)  # Imprimir un mensaje indicando el archivo que se está leyendo
                     # Iterar sobre los registros en el archivo de log
                     for record in log.records():
